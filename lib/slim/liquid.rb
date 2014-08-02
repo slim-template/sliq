@@ -70,7 +70,7 @@ module Slim
     end
 
     class Engine < ::Slim::Engine
-      replace ::Slim::Parser, Parser, :file, :tabsize, :shortcut, :default_tag, :attr_delims
+      replace Slim::Parser, Parser, :file, :tabsize, :shortcut, :default_tag, :attr_delims, :attr_list_delims, :code_attr_delims
       before ::Slim::Interpolation, Interpolation
       after Parser, Tags
     end
