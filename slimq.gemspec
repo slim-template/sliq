@@ -4,7 +4,7 @@ require 'date'
 
 Gem::Specification.new do |s|
   s.name              = 'slim-liquid'
-  s.version           = Slim::Liquid::VERSION
+  s.version           = Sliq::VERSION
   s.date              = Date.today.to_s
   s.authors           = ['Daniel Mendler']
   s.email             = ['mail@daniel-mendler.de']
@@ -19,4 +19,5 @@ Gem::Specification.new do |s|
   s.require_paths     = %w(lib)
 
   s.add_runtime_dependency('slim', ['~> 2.0.3']) # TODO: Require > 2.0.3 later!
+  s.add_runtime_dependency('liquid', ['~> 2.5.5'])
 end
