@@ -59,9 +59,9 @@ module Slim
           case string
           when /\A\{/
             string, code = parse_expression($')
-            block << [:escape, false, [:static, "{#{code}}"]]
+            block << [:escape, false, [:slim, :interpolate, "{#{code}}"]]
           when /\A([^\{]*)/
-            block << [:static, $&]
+            block << [:slim, :interpolate, $&]
             string = $'
           end
         end until string.empty?
