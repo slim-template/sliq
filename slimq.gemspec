@@ -1,9 +1,9 @@
 # -*- encoding: utf-8 -*-
-require File.dirname(__FILE__) + '/lib/slim/liquid/version'
+require File.dirname(__FILE__) + '/lib/sliq/version'
 require 'date'
 
 Gem::Specification.new do |s|
-  s.name              = 'slim-liquid'
+  s.name              = 'sliq'
   s.version           = Sliq::VERSION
   s.date              = Date.today.to_s
   s.authors           = ['Daniel Mendler']

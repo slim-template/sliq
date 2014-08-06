@@ -87,3 +87,5 @@ module Sliq
     end
   end
 end
+
+Tilt.register(Sliq::Template, 'sliq')
