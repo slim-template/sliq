@@ -18,6 +18,6 @@ Gem::Specification.new do |s|
   s.executables       = `git ls-files -- bin/*`.split("\n").map{ |f| File.basename(f) }
   s.require_paths     = %w(lib)
 
-  s.add_runtime_dependency('slim', ['~> 2.0.3']) # TODO: Require > 2.0.3 later!
+  s.add_runtime_dependency('slim', ['~> 2.1.0'])
   s.add_runtime_dependency('liquid', ['~> 2.5.5'])
 end
