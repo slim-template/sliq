@@ -4,7 +4,7 @@ require 'tilt/liquid'
 
 module Sliq
   class Parser < Slim::Parser
-    set_default_options :attr_list_delims => {
+    define_options attr_list_delims: {
       '(' => ')',
       '[' => ']'
     }
@@ -56,11 +56,19 @@ module Sliq
       block = [:multi]
       begin
         case string
-        when /\A\{/
-          string, code = parse_expression($')
-          block << [:escape, false, [:slim, :interpolate, "{#{code}}"]]
-        when /\A([^\{]*)/
-          block << [:slim, :interpolate, $&]
+        when /\A\\{\{/
+          # Escaped interpolation
+          block << [:static, '{{']
+          string = $'
+        when /\A\{{2}((?>[^{}]|(\{{2}(?>[^{}]|\g<1>)*\}{2}))*)\}{2}/
+          # Interpolation
+          string, code = $', $1
+          escape = code !~ /\A\{.*\}\Z/
+          block << [:slim, :output, escape, escape ? code : code[1..-2], [:multi]]
+        # TODO: make reg exp for liquid static text
+        when /\A([#\\]?[^#\\]*([#\\][^\\#\{][^#\\]*)*)/
+          # Static text
+          block << [:static, $&]
           string = $'
         end
       end until string.empty?
@@ -69,7 +77,7 @@ module Sliq
   end
 
   class Engine < Slim::Engine
-    replace Slim::Parser, Parser, :file, :tabsize, :shortcut, :default_tag, :attr_delims, :attr_list_delims, :code_attr_delims
+    replace Slim::Parser, Parser, Parser.options
     before Slim::Interpolation, Interpolation
     after Parser, Tags
   end
