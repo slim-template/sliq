@@ -19,5 +19,5 @@ Gem::Specification.new do |s|
   s.require_paths     = %w(lib)
 
   s.add_runtime_dependency('slim', ['~> 3.0'])
-  s.add_runtime_dependency('liquid', ['~> 3.0'])
+  s.add_runtime_dependency('liquid', ['~> 4.0'])
 end
