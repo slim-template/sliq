@@ -32,14 +32,9 @@ module Sliq
 
   class Tags < Slim::Filter
     def on_liquid_tag(name, args, block)
-      if empty_exp?(block)
-        [:static, "{% #{name} #{args} %}"]
-      else
-        [:multi,
-         [:static, "{% #{name} #{args} %}\n"],
-         block,
-         [:static, "\n{% end#{name} %}"]]
-      end
+      expr = [:static, "{% #{name} #{args} %}"]
+      expr = [:multi, expr, block ] unless empty_exp?(block)
+      expr
     end
   end
 
